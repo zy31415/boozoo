@@ -1,24 +1,43 @@
 package boozoo;
 
 import java.sql.*;
+
 /**
  * Hello world!
  *
  */
+
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
-        Connection c = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
-        }
-        System.out.println("Opened database successfully");
+        Class.forName("org.h2.Driver");
 
-        System.out.println( "Hello World!" );
+        try {
+
+            String dbURL = "jdbc:h2:./db";
+            Connection conn = DriverManager.getConnection(dbURL);
+
+            Statement stat = conn.createStatement();
+
+            stat.execute(
+                    "create table if not exists XX (id int primary key, name varchar(255))");
+
+            stat.execute(
+                    "insert into XX values (1234, 'yang zhang');"
+            );
+
+            conn.commit();
+
+            stat.close();
+
+            conn.close();
+
+            System.out.println( "Hello World!" );
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
