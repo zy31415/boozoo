@@ -7,7 +7,7 @@
 
 <VBox id="vbox" prefHeight="400" prefWidth="800"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="boozoo.MenuController">
+      fx:controller="github.boozoo.MenuController">
     <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
         <menus>
             <Menu text="File">
@@ -25,6 +25,7 @@
                     <MenuItem text="Copy"/>
                     <MenuItem text="Cut"/>
                     <MenuItem text="Paste"/>
+                    <MenuItem text="Add a Book" onAction="#handleAddBookAction"/>
                 </items>
             </Menu>
             <Menu text="Help">

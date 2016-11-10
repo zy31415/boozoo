@@ -1,4 +1,4 @@
-package boozoo;
+package github.boozoo;
 
 public class Controller {
 }

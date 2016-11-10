@@ -1,4 +1,4 @@
-package boozoo;
+package github.boozoo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,7 +7,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.TextInputDialog;
+//import java.util.Optional;
 
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -60,4 +63,29 @@ public class MenuController implements Initializable
         menuBar.setFocusTraversable(true);
 
     }
+
+    @FXML
+    private void handleAddBookAction(final ActionEvent event)
+    {
+        System.out.println("Add a book!");
+
+        TextInputDialog dialog = new TextInputDialog("walter");
+
+        dialog.setTitle("Add a book");
+        dialog.setHeaderText("Add a book into database");
+        dialog.setContentText("Book title:");
+
+
+//// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+////        if (result.isPresent()){
+////            System.out.println("Your name: " + result.get());
+////        }
+//
+//// The Java 8 way to get the response value (with lambda expression).
+//        result.ifPresent(name -> System.out.println("Your name: " + name));
+//
+    }
+
+
 }
