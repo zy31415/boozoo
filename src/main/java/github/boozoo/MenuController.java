@@ -2,15 +2,18 @@ package github.boozoo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.control.TextInputDialog;
-//import java.util.Optional;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -54,7 +57,20 @@ public class MenuController implements Initializable
      */
     private void provideAboutFunctionality()
     {
-        System.out.println("You clicked on About!");
+        Alert about = new Alert(Alert.AlertType.INFORMATION);
+
+        about.setTitle("About");
+        about.setHeaderText("This a book management software.");
+
+        WebView content = new WebView();
+        content.getEngine().loadContent(
+                "<ul> <li>Auther: Yang Zhang </li> </ul>"
+        );
+        content.setPrefSize(150, 60);
+
+        about.getDialogPane().setContent(content);
+
+        about.showAndWait();
     }
 
 
@@ -65,26 +81,18 @@ public class MenuController implements Initializable
     }
 
     @FXML
-    private void handleAddBookAction(final ActionEvent event)
+    private void handleAddBookAction (final ActionEvent event) throws Exception
     {
-        System.out.println("Add a book!");
+        Stage stage = new Stage();
 
-        TextInputDialog dialog = new TextInputDialog("walter");
+        Parent root = FXMLLoader.load(
+                getClass().getClassLoader().getResource("addbook.fxml")
+        );
 
-        dialog.setTitle("Add a book");
-        dialog.setHeaderText("Add a book into database");
-        dialog.setContentText("Book title:");
+        stage.setTitle("Add a book");
+        stage.setScene(new Scene(root, 350, 400));
+        stage.show();
 
-
-//// Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-////        if (result.isPresent()){
-////            System.out.println("Your name: " + result.get());
-////        }
-//
-//// The Java 8 way to get the response value (with lambda expression).
-//        result.ifPresent(name -> System.out.println("Your name: " + name));
-//
     }
 
 
