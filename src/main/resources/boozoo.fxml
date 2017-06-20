@@ -7,7 +7,7 @@
 
 <VBox id="vbox" prefHeight="400" prefWidth="800"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="github.boozoo.MenuController">
+      fx:controller="io.github.zy31415.boozoo.MenuController">
     <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
         <menus>
             <Menu text="File">
@@ -38,4 +38,18 @@
             </Menu>
         </menus>
     </MenuBar>
+
+    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn text="Title">
+            </TableColumn>
+            <TableColumn text="Authors">
+            </TableColumn>
+            <TableColumn text="Publisher">
+            </TableColumn>
+            <TableColumn text="Year">
+            </TableColumn>
+        </columns>
+    </TableView>
+
 </VBox>

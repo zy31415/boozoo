@@ -1,9 +1,6 @@
-package github.boozoo;
+package io.github.zy31415.boozoo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -12,6 +9,7 @@ import java.io.Serializable;
 public class Book implements Serializable {
     @Id
     @Column(name = "id", unique=true)
+    @GeneratedValue
     private int id;
 
     @Column(name = "title")
@@ -22,10 +20,6 @@ public class Book implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {

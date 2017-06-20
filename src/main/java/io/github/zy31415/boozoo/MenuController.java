@@ -1,4 +1,4 @@
-package github.boozoo;
+package io.github.zy31415.boozoo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

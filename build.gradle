@@ -1,0 +1,28 @@
+repositories {
+    mavenCentral()
+}
+
+apply plugin: "java"
+
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.4.Final'
+
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.193'
+
+    // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+
+}
+
+sourceSets {
+    main.java.srcDir "src/main"
+    test.java.srcDir "src/test"
+}
+
+jar {
+    from configurations.compile.collect {zipTree it}
+    manifest.attributes "Main-Class": "io.github.zy31415.boozoo.Main"
+}

@@ -1,16 +1,21 @@
-package github.boozoo;
+package io.github.zy31415.boozoo;
+
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.scene.control.TableView;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-
+import javax.persistence.Query;
 
 public class Main extends Application {
 
@@ -21,8 +26,23 @@ public class Main extends Application {
         );
         primaryStage.setTitle("BooZoo");
         primaryStage.setScene(new Scene(root, 700, 700));
+
+        /*
+        Book book = new Book();
+        book.setTitle("haha");
+
+        ObservableList<Book> data = FXCollections.observableArrayList(
+                book
+        );
+
+        TableView table = (TableView) root.lookup("#tableView");
+
+        table.setItems(data);
+         */
+
         primaryStage.show();
     }
+
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("JavaHelps");
@@ -30,15 +50,26 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        create(1, "Alice", 22); // Alice will get an id 1
-        create(2, "Bob", 20); // Bob will get an id 2
-        create(3, "Charlie", 25); // Charlie will get an id 3
+        /*
+
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        Query query = manager.createQuery("select title from Book");
+
+        List results = query.getResultList();
+
+        for (Object title : results) {
+            System.out.print(title + "\n");
+        }
 
         ENTITY_MANAGER_FACTORY.close();
-
+        */
         launch(args);
+
+
     }
 
+    /*
     public static void create(int id, String name, int age) {
         // Create an EntityManager
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -73,5 +104,6 @@ public class Main extends Application {
             manager.close();
         }
     }
+    */
 
 }
