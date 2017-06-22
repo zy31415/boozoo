@@ -27,7 +27,7 @@ public class Main extends Application {
         primaryStage.setTitle("BooZoo");
         primaryStage.setScene(new Scene(root, 700, 700));
 
-        /*
+
         Book book = new Book();
         book.setTitle("haha");
 
@@ -38,7 +38,7 @@ public class Main extends Application {
         TableView table = (TableView) root.lookup("#tableView");
 
         table.setItems(data);
-         */
+
 
         primaryStage.show();
     }
@@ -49,8 +49,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-        /*
 
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
 
@@ -63,13 +61,13 @@ public class Main extends Application {
         }
 
         ENTITY_MANAGER_FACTORY.close();
-        */
+
         launch(args);
 
 
     }
 
-    /*
+
     public static void create(int id, String name, int age) {
         // Create an EntityManager
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -104,6 +102,5 @@ public class Main extends Application {
             manager.close();
         }
     }
-    */
 
 }

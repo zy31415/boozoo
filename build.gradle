@@ -7,13 +7,21 @@ apply plugin: "java"
 
 dependencies {
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.4.Final'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
 
     // https://mvnrepository.com/artifact/com.h2database/h2
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.193'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
 
-    // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
-    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-hikaricp
+    compile group: 'org.hibernate', name: 'hibernate-hikaricp', version: '5.2.10.Final'
 
 }
 
