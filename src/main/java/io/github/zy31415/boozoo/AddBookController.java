@@ -1,5 +1,7 @@
 package io.github.zy31415.boozoo;
 
+import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.database.EmProvider2;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,18 +10,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.ResourceBundle;
 
 /**
  * Created by zy on 11/12/16.
  */
 public class AddBookController implements Initializable {
-
-    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
-            Persistence.createEntityManagerFactory("JavaHelps");
 
     @FXML
     private Button cancelButton;
@@ -50,7 +47,9 @@ public class AddBookController implements Initializable {
 
     private void createBookEntry(){
         // Create an EntityManager
-        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+//        EntityManager manager = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
+        EntityManager manager = EmProvider2.getEntityManagerFactory().createEntityManager();
+
         EntityTransaction transaction = null;
 
         try {
