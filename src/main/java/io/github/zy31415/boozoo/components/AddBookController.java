@@ -1,10 +1,11 @@
-package io.github.zy31415.boozoo;
+package io.github.zy31415.boozoo.components;
 
+import io.github.zy31415.boozoo.database.Book;
 import io.github.zy31415.boozoo.database.EmProvider;
-import io.github.zy31415.boozoo.database.EmProvider2;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,6 +18,11 @@ import java.util.ResourceBundle;
  * Created by zy on 11/12/16.
  */
 public class AddBookController implements Initializable {
+
+    private BookView bookView;
+
+    @FXML
+    private Button addBookButton;
 
     @FXML
     private Button cancelButton;
@@ -32,7 +38,18 @@ public class AddBookController implements Initializable {
     @FXML
     private void handleAddBookAction (final ActionEvent event)
     {
+        System.out.println("Event: " + event.toString());
+        System.out.println("Event target: " + event.getTarget().toString());
+
+
         createBookEntry();
+
+        Node node = (Node)event.getSource();
+
+        bookView.loadData();
+
+        Stage stage = (Stage)node.getScene().getWindow();
+        stage.close();
 
     }
 
@@ -47,8 +64,7 @@ public class AddBookController implements Initializable {
 
     private void createBookEntry(){
         // Create an EntityManager
-//        EntityManager manager = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
-        EntityManager manager = EmProvider2.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
 
         EntityTransaction transaction = null;
 
@@ -81,6 +97,11 @@ public class AddBookController implements Initializable {
             // Close the EntityManager
             manager.close();
         }
+
+    }
+
+    public void setBookView(BookView bookView){
+        this.bookView = bookView;
     }
 
 }

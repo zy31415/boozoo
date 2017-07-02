@@ -8,13 +8,13 @@ import java.util.Date;
  * Created by zy on 6/25/17.
  */
 
-public class EmProvider2 {
+public class EmProvider {
 
     public static final boolean DEBUG = true;
 
     private static EntityManagerFactory emf;
 
-    private EmProvider2() {}
+    private EmProvider() {}
 
 
     public static EntityManagerFactory getEntityManagerFactory() {

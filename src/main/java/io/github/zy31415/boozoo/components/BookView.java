@@ -1,8 +1,8 @@
 package io.github.zy31415.boozoo.components;
 
-import io.github.zy31415.boozoo.Book;
-import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.database.Book;
 
+import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -36,9 +36,9 @@ public class BookView extends TableView {
         }
     }
 
-    private void loadData() {
+    public void loadData() {
 
-        EntityManager manager = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
+        EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
 
         Query query = manager.createQuery(
                 "select new Book(b.title) from Book as b",
@@ -51,4 +51,5 @@ public class BookView extends TableView {
 
         manager.close();
     }
+
 }

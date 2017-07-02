@@ -3,44 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-
 
 <?import io.github.zy31415.boozoo.components.BookView?>
+<?import io.github.zy31415.boozoo.components.BoozooMenuBar?>
 <BorderPane id="vbox" prefHeight="400" prefWidth="800"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="io.github.zy31415.boozoo.MenuController">
+            xmlns:fx="http://javafx.com/fxml">
     <top>
-        <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
-            <menus>
-                <Menu text="File">
-                    <items>
-                        <MenuItem text="New"/>
-                        <MenuItem text="Open"/>
-                        <MenuItem text="Save"/>
-                        <MenuItem text="Save As"/>
-                        <SeparatorMenuItem  />
-                        <MenuItem text="Exit"/>
-                    </items>
-                </Menu>
-                <Menu text="Edit">
-                    <items>
-                        <MenuItem text="Copy"/>
-                        <MenuItem text="Cut"/>
-                        <MenuItem text="Paste"/>
-                        <MenuItem text="Add a Book" onAction="#handleAddBookAction"/>
-                    </items>
-                </Menu>
-                <Menu text="Help">
-                    <items>
-                        <MenuItem text="Search" disable="true"/>
-                        <MenuItem text="Online Manual" visible="false"/>
-                        <SeparatorMenuItem />
-                        <MenuItem text="About" onAction="#handleAboutAction"/>
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
+        <BoozooMenuBar fx:id="menuBar"/>
     </top>
 
     <center>

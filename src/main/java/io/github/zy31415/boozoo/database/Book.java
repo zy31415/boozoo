@@ -1,4 +1,4 @@
-package io.github.zy31415.boozoo;
+package io.github.zy31415.boozoo.database;
 
 import javax.persistence.*;
 import java.io.Serializable;
