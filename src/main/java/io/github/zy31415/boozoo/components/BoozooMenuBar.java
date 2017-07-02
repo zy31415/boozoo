@@ -1,13 +1,16 @@
 package io.github.zy31415.boozoo.components;
 
 
+import io.github.zy31415.boozoo.database.Book;
+import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,7 +18,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by zy on 7/2/17.
@@ -95,21 +102,90 @@ public class BoozooMenuBar extends MenuBar {
     {
         Stage primaryStage = (Stage)getScene().getWindow();
 
+        AddBookDialog root = new AddBookDialog(primaryStage);
+
         Stage dialogStage = new Stage();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addbook.fxml"));
-
-        Parent root = loader.load();
 
         dialogStage.setTitle("Add a book");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
         dialogStage.setScene(new Scene(root, 350, 400));
 
-        AddBookController addBookController = loader.getController();
-        addBookController.setBookView((BookView)primaryStage.getScene().lookup("#bookView"));
-
         dialogStage.show();
+
+    }
+
+    @FXML
+    private void deleteBookDialog(final ActionEvent event) throws Exception
+    {
+        Stage primaryStage = (Stage)getScene().getWindow();
+        BookView bookView = (BookView)(primaryStage.getScene().lookup("#bookView"));
+
+        Book book = (Book)bookView.getSelectionModel().getSelectedItem();
+        System.out.println(book);
+
+        if (book == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Please select a book");
+            alert.setContentText("Please select a book");
+
+            alert.showAndWait();
+
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Deletion");
+        alert.setHeaderText("Confirm deletion");
+        alert.setContentText("Are you sure to delete book ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+
+            EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
+            EntityTransaction transaction = null;
+
+            try {
+                // Get a transaction
+                transaction = manager.getTransaction();
+                // Begin the transaction
+                transaction.begin();
+
+                // Save the student object
+                manager.remove(book);
+
+                Query query = manager.createQuery(
+                        "delete from Book as b where b.title = :TITLE"
+                );
+
+                query.setParameter("TITLE", book.getTitle());
+
+                int deleteCount = query.executeUpdate();
+
+                System.out.println(deleteCount);
+
+                // Commit the transaction
+                transaction.commit();
+
+            } catch (Exception ex) {
+                // If there are any exceptions, roll back the changes
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                // Print the Exception
+                ex.printStackTrace();
+            } finally {
+                // Close the EntityManager
+                manager.close();
+            }
+
+            bookView.loadData();
+
+
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
 
     }
 

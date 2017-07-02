@@ -4,62 +4,59 @@ import io.github.zy31415.boozoo.database.Book;
 import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 /**
- * Created by zy on 11/12/16.
+ * Created by zy on 7/2/17.
  */
-public class AddBookController implements Initializable {
+public class AddBookDialog extends GridPane{
 
-    private BookView bookView;
+    private Stage primaryStage;
 
-    @FXML
-    private Button addBookButton;
+    public AddBookDialog(Stage primaryStage) {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addbook.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
 
-    @FXML
-    private Button cancelButton;
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
-    @FXML
-    private TextField title;
-
-    @Override
-    public void initialize(java.net.URL arg0, ResourceBundle arg1) {
+        this.primaryStage = primaryStage;
 
     }
 
     @FXML
     private void handleAddBookAction (final ActionEvent event)
     {
-        System.out.println("Event: " + event.toString());
-        System.out.println("Event target: " + event.getTarget().toString());
-
-
         createBookEntry();
 
-        Node node = (Node)event.getSource();
-
+        BookView bookView = (BookView)(primaryStage.getScene().lookup("#bookView"));
         bookView.loadData();
 
-        Stage stage = (Stage)node.getScene().getWindow();
-        stage.close();
+        Stage dialogStage = (Stage)getScene().getWindow();
+
+        dialogStage.close();
 
     }
 
     @FXML
     private void handleCancelAction (final ActionEvent event){
-
-        Stage addBook = (Stage) cancelButton.getScene().getWindow();
-
-        addBook.close();
-
+        Stage dialogStage = (Stage)getScene().getWindow();
+        dialogStage.close();
     }
 
     private void createBookEntry(){
@@ -76,6 +73,8 @@ public class AddBookController implements Initializable {
 
             // Create a new Student object
             Book book = new Book();
+
+            TextField title = (TextField) getScene().lookup("#title");
 
             System.out.print("Book title: " + title.getText() + "\n");
 
@@ -98,10 +97,6 @@ public class AddBookController implements Initializable {
             manager.close();
         }
 
-    }
-
-    public void setBookView(BookView bookView){
-        this.bookView = bookView;
     }
 
 }

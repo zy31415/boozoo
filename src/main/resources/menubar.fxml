@@ -25,6 +25,7 @@
                 <MenuItem text="Cut"/>
                 <MenuItem text="Paste"/>
                 <MenuItem text="Add a Book" onAction="#addBookDialog"/>
+                <MenuItem text="Delete a Book" onAction="#deleteBookDialog"/>
             </items>
         </Menu>
         <Menu text="Help">
