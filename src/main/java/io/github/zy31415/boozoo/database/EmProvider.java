@@ -8,21 +8,16 @@ import java.util.Date;
  * Created by zy on 6/25/17.
  */
 
-public class EmProvider {
-
-    private static final EmProvider singleton = new EmProvider();
+public class EmProvider2 {
 
     public static final boolean DEBUG = true;
 
-    private EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
-    private EmProvider () {}
+    private EmProvider2() {}
 
-    public static EmProvider getInstance() {
-        return singleton;
-    }
 
-    public EntityManagerFactory getEntityManagerFactory() {
+    public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null) {
             emf = Persistence.createEntityManagerFactory("BoozooDB");
         }
@@ -34,7 +29,7 @@ public class EmProvider {
         return emf;
     }
 
-    public void closeEmf() {
+    public static void closeEntityManagerFactory() {
         if (emf.isOpen() || emf != null) {
             emf.close();
         }
