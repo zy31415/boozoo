@@ -1,16 +1,12 @@
 package io.github.zy31415.boozoo.components;
 
-import io.github.zy31415.boozoo.database.Book;
+import io.github.zy31415.boozoo.models.Book;
 import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;

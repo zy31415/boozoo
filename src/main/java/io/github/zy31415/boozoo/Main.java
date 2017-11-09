@@ -1,11 +1,15 @@
 package io.github.zy31415.boozoo;
 
+import io.github.zy31415.boozoo.models.Book;
+import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import javax.persistence.EntityManager;
 
 
 public class Main extends Application {

@@ -1,7 +1,7 @@
 package io.github.zy31415.boozoo.components;
 
 
-import io.github.zy31415.boozoo.database.Book;
+import io.github.zy31415.boozoo.models.Book;
 import io.github.zy31415.boozoo.database.EmProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

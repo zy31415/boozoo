@@ -1,4 +1,6 @@
-package io.github.zy31415.boozoo.database;
+package io.github.zy31415.boozoo.models;
+
+import io.github.zy31415.boozoo.models.Author;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +14,7 @@ public class Book implements Serializable {
     @Id
     @Column(name = "id", unique=true)
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -29,7 +31,7 @@ public class Book implements Serializable {
         this.title = title;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

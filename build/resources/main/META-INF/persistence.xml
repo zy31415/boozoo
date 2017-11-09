@@ -25,7 +25,7 @@
             <property name="hibernate.hikari.maximumPoolSize" value="100" />
             <property name="hibernate.hikari.idleTimeout" value="30000" />
             <property name="hibernate.hikari.dataSourceClassName" value="org.h2.jdbcx.JdbcDataSource" />
-            <property name="hibernate.hikari.dataSource.url" value="jdbc:h2:./temp/database/h2" />
+            <property name="hibernate.hikari.dataSource.url" value="jdbc:h2:./database/h2" />
             <property name="packagesToScan" value="io.github.zy31415.boozoo.models" />
         </properties>
 

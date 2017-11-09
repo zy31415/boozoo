@@ -1,15 +1,14 @@
 package io.github.zy31415.boozoo.components;
 
-import io.github.zy31415.boozoo.database.Book;
-
 import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.models.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
 import java.io.IOException;
 
 /**
@@ -41,7 +40,7 @@ public class BookView extends TableView {
         EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
 
         Query query = manager.createQuery(
-                "select new Book(b.title) from Book as b",
+                "select b from Book as b",
                 Book.class
         );
 
