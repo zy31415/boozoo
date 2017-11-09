@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea
+.idea/
 boozoo.iml
 .gradle
 
-temp
+temp/
+build/
+

@@ -2,7 +2,7 @@ package io.github.zy31415.boozoo.components;
 
 
 import io.github.zy31415.boozoo.models.Book;
-import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.database.BoozooEMF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -142,7 +142,7 @@ public class BoozooMenuBar extends MenuBar {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
 
-            EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
+            EntityManager manager = BoozooEMF.getEntityManagerFactory().createEntityManager();
             EntityTransaction transaction = null;
 
             try {

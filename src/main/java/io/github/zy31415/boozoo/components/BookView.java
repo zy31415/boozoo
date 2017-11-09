@@ -1,6 +1,6 @@
 package io.github.zy31415.boozoo.components;
 
-import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.database.BoozooEMF;
 import io.github.zy31415.boozoo.models.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +37,7 @@ public class BookView extends TableView {
 
     public void loadData() {
 
-        EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = BoozooEMF.getEntityManagerFactory().createEntityManager();
 
         Query query = manager.createQuery(
                 "select b from Book as b",

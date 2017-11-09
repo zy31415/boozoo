@@ -1,7 +1,7 @@
 package io.github.zy31415.boozoo.components;
 
 import io.github.zy31415.boozoo.models.Book;
-import io.github.zy31415.boozoo.database.EmProvider;
+import io.github.zy31415.boozoo.database.BoozooEMF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +57,7 @@ public class AddBookDialog extends GridPane{
 
     private void createBookEntry(){
         // Create an EntityManager
-        EntityManager manager = EmProvider.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = BoozooEMF.getEntityManagerFactory().createEntityManager();
 
         EntityTransaction transaction = null;
 
