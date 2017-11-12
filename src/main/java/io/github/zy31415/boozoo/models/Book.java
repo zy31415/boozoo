@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,9 +28,9 @@ public class Book implements Serializable {
     private String path;
 
     @ManyToMany
-    private Set<Author> authors = new HashSet<>(0);
+    private List<Author> authors = new ArrayList<>();
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 

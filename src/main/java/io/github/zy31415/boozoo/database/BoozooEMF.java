@@ -14,12 +14,17 @@ import java.nio.file.Paths;
 
 public class BoozooEMF {
 
+    private static Integer port = 9123;
+
+    public static void setPort(Integer port) {
+        BoozooEMF.port = port;
+    }
+
     private BoozooEMF() {}
 
     final static Logger logger = LogManager.getLogger();
 
     private static final String BOOZOOROOT = getBOOZOOROOT();
-    private static final String DbUrl = getDbUrl();
 
     private static String getBOOZOOROOT() {
         String booZooRoot = System.getenv("BOOZOOROOT");
@@ -34,24 +39,29 @@ public class BoozooEMF {
     }
 
     private static String getDbUrl() {
-        Path dbPath = Paths.get(BOOZOOROOT, "db", "boozoo.h2");
-        String dbUrl = String.format("jdbc:h2:%s", dbPath.toString());
-        logger.info("Database URL is {}", dbUrl);
-        return dbUrl;
+        return String.format("jdbc:h2:tcp://localhost:%d/./boozoo.h5", port);
     }
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(
-            "BoozooDB",
-            ImmutableMap.of("hibernate.hikari.dataSource.url", DbUrl));
+    private static EntityManagerFactory emf = null;
 
     public static EntityManagerFactory getEntityManagerFactory() {
+        if (null == emf) {
+            emf = Persistence.createEntityManagerFactory(
+                    "BoozooDB",
+                    ImmutableMap.of("hibernate.hikari.dataSource.url", getDbUrl()));
+        }
         return emf;
     }
 
     public static void closeEntityManagerFactory() {
+        if (null == emf){
+            return;
+        }
+
         if (emf.isOpen()) {
             emf.close();
         }
+
         emf = null;
     }
 }
