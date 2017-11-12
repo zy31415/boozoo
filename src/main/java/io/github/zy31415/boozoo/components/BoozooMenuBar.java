@@ -1,8 +1,8 @@
 package io.github.zy31415.boozoo.components;
 
 
-import io.github.zy31415.boozoo.models.Book;
 import io.github.zy31415.boozoo.database.BoozooEMF;
+import io.github.zy31415.boozoo.models.Book;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,20 +29,15 @@ import java.util.Optional;
 public class BoozooMenuBar extends MenuBar {
     private static final String FXML = "menubar.fxml";
 
-    public BoozooMenuBar() {
+    public BoozooMenuBar() throws IOException {
         loadFXML();
     }
 
-    private void loadFXML() {
+    private void loadFXML() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(FXML));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        fxmlLoader.load();
     }
 
     /**

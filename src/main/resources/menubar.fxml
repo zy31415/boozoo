@@ -1,41 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import io.github.zy31415.boozoo.components.BoozooMenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 
 <fx:root type="io.github.zy31415.boozoo.components.BoozooMenuBar" xmlns:fx="http://javafx.com/fxml">
-    <menus>
-        <Menu text="File">
-            <items>
-                <MenuItem text="New"/>
-                <MenuItem text="Open"/>
-                <MenuItem text="Save"/>
-                <MenuItem text="Save As"/>
-                <SeparatorMenuItem  />
-                <MenuItem text="Exit"/>
-            </items>
-        </Menu>
-        <Menu text="Edit">
-            <items>
-                <MenuItem text="Copy"/>
-                <MenuItem text="Cut"/>
-                <MenuItem text="Paste"/>
-                <MenuItem text="Add a Book" onAction="#addBookDialog"/>
-                <MenuItem text="Delete a Book" onAction="#deleteBookDialog"/>
-            </items>
-        </Menu>
-        <Menu text="Help">
-            <items>
-                <MenuItem text="Search" disable="true"/>
-                <MenuItem text="Online Manual" visible="false"/>
-                <SeparatorMenuItem />
-                <MenuItem text="About" onAction="#handleAboutAction"/>
-            </items>
-        </Menu>
-    </menus>
+    <Menu text="_File">
+        <MenuItem text="New"/>
+        <SeparatorMenuItem  />
+        <MenuItem text="_Settings"/>
+        <SeparatorMenuItem  />
+        <MenuItem text="Exit"/>
+    </Menu>
+    <Menu text="_Edit" accelerator="Alt+E">
+        <MenuItem id="addABook" text="_Add a Book" onAction="#addBookDialog" accelerator="Shortcut+Alt+A"/>
+        <MenuItem text="Delete a Book" onAction="#deleteBookDialog"/>
+    </Menu>
+    <Menu text="_Help">
+        <MenuItem text="Search" disable="true"/>
+        <SeparatorMenuItem />
+        <MenuItem text="About" onAction="#handleAboutAction"/>
+    </Menu>
 </fx:root>
 

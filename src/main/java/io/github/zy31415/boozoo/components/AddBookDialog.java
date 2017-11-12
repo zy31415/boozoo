@@ -1,22 +1,31 @@
 package io.github.zy31415.boozoo.components;
 
-import io.github.zy31415.boozoo.models.Book;
 import io.github.zy31415.boozoo.database.BoozooEMF;
+import io.github.zy31415.boozoo.models.Author;
+import io.github.zy31415.boozoo.models.Book;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by zy on 7/2/17.
  */
 public class AddBookDialog extends GridPane{
+
+    private static Logger logger = LogManager.getLogger();
 
     private Stage primaryStage;
 
@@ -28,7 +37,7 @@ public class AddBookDialog extends GridPane{
         try {
             loader.load();
         } catch (IOException exception) {
-            exception.printStackTrace();
+            logger.error(exception.getStackTrace());
         }
 
         this.primaryStage = primaryStage;
@@ -62,36 +71,77 @@ public class AddBookDialog extends GridPane{
         EntityTransaction transaction = null;
 
         try {
-            // Get a transaction
             transaction = manager.getTransaction();
-            // Begin the transaction
             transaction.begin();
-
-            // Create a new Student object
-            Book book = new Book();
-
-            TextField title = (TextField) getScene().lookup("#title");
-
-            System.out.print("Book title: " + title.getText() + "\n");
-
-            book.setTitle(title.getText());
-
-            // Save the student object
-            manager.persist(book);
-
-            // Commit the transaction
+            createBookEntry(manager);
             transaction.commit();
+
         } catch (Exception ex) {
             // If there are any exceptions, roll back the changes
             if (transaction != null) {
                 transaction.rollback();
             }
-            // Print the Exception
-            ex.printStackTrace();
+            logger.error("Failed!", ex);
         } finally {
-            // Close the EntityManager
             manager.close();
         }
+    }
+
+    private void createBookEntry(EntityManager em) {
+
+        Author author = createAuthor(em);
+
+        Book book = new Book();
+        TextField title = (TextField) getScene().lookup("#title");
+        book.setTitle(title.getText());
+
+        if (null != author) {
+            book.addAuthor(author);
+        }
+
+        em.persist(book);
+    }
+
+    private Author createAuthor(EntityManager em) {
+        Author author = null;
+
+        TextField authorTextField = (TextField) getScene().lookup("#author");
+        assert authorTextField != null;
+
+        if (null == authorTextField.getText() || authorTextField.getText().trim().isEmpty()) {
+            logger.debug("Author text field is null or empty string.");
+            return author;
+        }
+
+        String authorName = authorTextField.getText().trim();
+
+        Query query = em.createQuery("from Author where name = :authorName");
+        query.setParameter("authorName", authorName);
+        List<Author> results = query.getResultList();
+
+        if (results.isEmpty()) {
+            author = new Author();
+            author.setName(authorName);
+            em.persist(author);
+            return author;
+        }
+
+        assert results.size() == 1;
+        return results.get(0);
+    }
+
+    @FXML
+    private void handleChooseFileButton() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"),
+                new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt")
+        );
+
+        File file = fileChooser.showOpenDialog(primaryStage);
+
+        TextField docPath = (TextField) lookup("#docPath");
+        docPath.setText(file.toString());
 
     }
 

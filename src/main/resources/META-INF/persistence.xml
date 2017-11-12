@@ -11,6 +11,7 @@
 
         <class>io.github.zy31415.boozoo.models.Book</class>
         <class>io.github.zy31415.boozoo.models.Author</class>
+        <class>io.github.zy31415.boozoo.models.Tag</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

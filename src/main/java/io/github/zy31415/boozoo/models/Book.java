@@ -1,8 +1,11 @@
 package io.github.zy31415.boozoo.models;
 
-import io.github.zy31415.boozoo.models.Author;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +19,27 @@ public class Book implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     @Column(name = "path")
     private String path;
 
     @ManyToMany
-    private Set<Author> authors = new HashSet<Author>(0);
+    private Set<Author> authors = new HashSet<>(0);
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void addAuthor(Author author) {
+        assert null != author;
+        authors.add(author);
+    }
+
+
+    @ManyToMany
+    private Set<Tag> tags = new HashSet<>(0);
 
     public Book() {}
 
@@ -47,4 +63,5 @@ public class Book implements Serializable {
     public String toString () {
         return id + "\t" + title;
     }
+
 }

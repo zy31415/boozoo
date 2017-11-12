@@ -19,7 +19,7 @@
         <TextField id="title" />
 
         <Label><text>Authors:</text></Label>
-        <TextField/>
+        <TextField id="author"/>
 
         <Label><text>Edition:</text></Label>
         <TextField/>
@@ -27,13 +27,20 @@
         <Label><text>Publisher:</text></Label>
         <TextField/>
 
-        <Label><text>File:</text></Label>
-        <TextField/>
+        <HBox>
+            <Label><text>File:</text></Label>
+            <Button id="chooseFileButton" onAction="#handleChooseFileButton"><text>Choose File</text></Button>
+        </HBox>
+
+        <TextField id="docPath"/>
 
         <HBox spacing="10.0" alignment="CENTER">
             <Button id="addBookButton" onAction="#handleAddBookAction">Add</Button>
             <Button id="cancelButton" onAction="#handleCancelAction">Cancel</Button>
         </HBox>
+
+        <Label> Tags </Label>
+        <TextField id="tags"/>
 
     </VBox>
 

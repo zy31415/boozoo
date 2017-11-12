@@ -1,6 +1,10 @@
 package io.github.zy31415.boozoo.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,26 +19,18 @@ public class Author implements Serializable {
     @GeneratedValue
     private int id;
 
-    @Column(name = "firstNmae")
-    private String firstNmae;
-
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "name", unique = true)
+    private String name;
 
     public int getId() {
         return id;
     }
 
-    public String getFirstName() {
-        return firstNmae;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Override
-    public String toString () {
-        return lastName + ", " + firstNmae;
+    public void setName(String name) {
+        this.name = name;
     }
 }
