@@ -3,10 +3,9 @@ package io.github.zy31415.boozoo.database;
 import com.google.common.collect.ImmutableMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Created by zy on 6/25/17.
@@ -14,29 +13,15 @@ import java.nio.file.Paths;
 
 public class BoozooEMF {
 
+    private BoozooEMF() {}
+
     private static Integer port = 9123;
 
     public static void setPort(Integer port) {
         BoozooEMF.port = port;
     }
 
-    private BoozooEMF() {}
-
-    final static Logger logger = LogManager.getLogger();
-
-    private static final String BOOZOOROOT = getBOOZOOROOT();
-
-    private static String getBOOZOOROOT() {
-        String booZooRoot = System.getenv("BOOZOOROOT");
-
-        if (null == booZooRoot) {
-            booZooRoot = "~/.boozoo/";
-        }
-
-        logger.info("BOOZOOROOT is {}", booZooRoot);
-        return booZooRoot;
-
-    }
+    static final Logger logger = LogManager.getLogger();
 
     private static String getDbUrl() {
         return String.format("jdbc:h2:tcp://localhost:%d/./boozoo.h5", port);
@@ -57,11 +42,9 @@ public class BoozooEMF {
         if (null == emf){
             return;
         }
-
         if (emf.isOpen()) {
             emf.close();
         }
-
         emf = null;
     }
 }

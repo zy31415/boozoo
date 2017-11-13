@@ -1,6 +1,7 @@
 package io.github.zy31415.boozoo;
 
 import io.github.zy31415.boozoo.database.BoozooEMF;
+import io.github.zy31415.boozoo.database.DatabaseServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.h2.tools.Server;
 
 import java.sql.SQLException;
 
@@ -32,15 +32,10 @@ public class Main extends Application {
     }
 
     public static void main (String[] args) throws SQLException {
-        Server server = Server.createTcpServer(
-                "-baseDir", "/Users/yang.zhang/workspace/boozoo/temp/boozoo/db").start();
-        logger.debug("Server status: {}", server.getStatus());
-        BoozooEMF.setPort(server.getPort());
-
+        DatabaseServer.start();
+        BoozooEMF.setPort(DatabaseServer.getPort());
         launch(args);
-
-        server.stop();
-        logger.debug("Server status: {}", server.getStatus());
+        DatabaseServer.stop();
     }
 
 }
