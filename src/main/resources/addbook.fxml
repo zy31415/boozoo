@@ -5,14 +5,16 @@
 
 <?import javafx.geometry.Insets?>
 
+<?import io.github.zy31415.boozoo.components.AddLabelBox?>
 <fx:root type="io.github.zy31415.boozoo.components.AddBookDialog" alignment="CENTER" hgap="10.0" vgap="10.0"
+         prefHeight="600"
          xmlns:fx="http://javafx.com/fxml">
 
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
     </padding>
 
-    <VBox id="vbox" prefHeight="450" prefWidth="800" spacing="10.0"
+    <VBox id="vbox" prefHeight="700" prefWidth="800" spacing="10.0"
           xmlns:fx="http://javafx.com/fxml">
 
         <Label> Title: </Label>
@@ -27,6 +29,11 @@
         <Label><text>Publisher:</text></Label>
         <TextField/>
 
+        <AddLabelBox />
+
+        <Label> Tag </Label>
+        <TextField id="tag"/>
+
         <HBox>
             <Label><text>File:</text></Label>
             <Button id="chooseFileButton" onAction="#handleChooseFileButton"><text>Choose File</text></Button>
@@ -39,8 +46,7 @@
             <Button id="cancelButton" onAction="#handleCancelAction">Cancel</Button>
         </HBox>
 
-        <Label> Tags </Label>
-        <TextField id="tags"/>
+
 
     </VBox>
 

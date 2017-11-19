@@ -3,6 +3,7 @@ package io.github.zy31415.boozoo.components;
 import io.github.zy31415.boozoo.database.BoozooEMF;
 import io.github.zy31415.boozoo.models.Author;
 import io.github.zy31415.boozoo.models.Book;
+import io.github.zy31415.boozoo.models.Tag;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zy on 7/2/17.
@@ -41,7 +44,6 @@ public class AddBookDialog extends GridPane{
         }
 
         this.primaryStage = primaryStage;
-
     }
 
     @FXML
@@ -90,6 +92,7 @@ public class AddBookDialog extends GridPane{
     private void createBookEntry(EntityManager em) {
 
         Author author = createAuthor(em);
+        Set<Tag> tags = createTags(em);
 
         Book book = new Book();
         TextField title = (TextField) getScene().lookup("#title");
@@ -97,6 +100,7 @@ public class AddBookDialog extends GridPane{
 
         if (null != author) {
             book.addAuthor(author);
+            book.setTags(tags);
         }
 
         em.persist(book);
@@ -128,6 +132,49 @@ public class AddBookDialog extends GridPane{
 
         assert results.size() == 1;
         return results.get(0);
+    }
+
+    private Set<Tag> createTags(EntityManager em){
+
+
+
+//        TextField tagTextField = (TextField) getScene().lookup("#tag");
+
+        AddLabelBox addLabelBox = (AddLabelBox) getScene().lookup("#tags");
+        List<String> tagNames= addLabelBox.getTagNames();
+
+//        assert tagTextField != null;
+//
+//        if (null == tagTextField.getText() || tagTextField.getText().trim().isEmpty()) {
+//            logger.debug("Tag text field is null or empty string.");
+//            return tag;
+//        }
+
+//        String tagName = tagTextField.getText().trim();
+
+        Query query = em.createQuery("from Tag where name = :tagName");
+
+        Set<Tag> tags = new HashSet<>();
+
+        for (String tagName: tagNames) {
+            Tag tag;
+            query.setParameter("tagName", tagName);
+            List<Tag> results = query.getResultList();
+
+            if (results.isEmpty()) {
+                tag = new Tag();
+                tag.setName(tagName);
+                em.persist(tag);
+
+            } else {
+                assert results.size() == 1;
+                tag = results.get(0);
+            }
+
+            tags.add(tag);
+        }
+
+        return tags;
     }
 
     @FXML

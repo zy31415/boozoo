@@ -2,12 +2,15 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
 
+<?import io.github.zy31415.boozoo.components.AuthorNameValueFactory?>
+<?import io.github.zy31415.boozoo.components.TagNameValueFactory?>
+
 <fx:root type="io.github.zy31415.boozoo.components.BookView" xmlns:fx="http://javafx.com/fxml">
     <columns>
         <TableColumn text="Authors">
-            <!--<cellValueFactory>-->
-                <!--<PropertyValueFactory property="authors" />-->
-            <!--</cellValueFactory>-->
+            <cellValueFactory>
+                <AuthorNameValueFactory property="authors" />
+            </cellValueFactory>
         </TableColumn>
 
         <TableColumn text="Title">
@@ -20,6 +23,12 @@
         </TableColumn>
 
         <TableColumn text="Year">
+        </TableColumn>
+
+        <TableColumn text="Tags">
+            <cellValueFactory>
+                <TagNameValueFactory property="tags" />
+            </cellValueFactory>
         </TableColumn>
     </columns>
 

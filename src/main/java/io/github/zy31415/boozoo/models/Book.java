@@ -1,9 +1,13 @@
 package io.github.zy31415.boozoo.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,10 +31,15 @@ public class Book implements Serializable {
     @Column(name = "path")
     private String path;
 
-    @ManyToMany
-    private List<Author> authors = new ArrayList<>();
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch= FetchType.EAGER)
+    @JoinTable(
+            name = "book_author",
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "author_id") }
+    )
+    private Set<Author> authors = new HashSet<>();
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
@@ -40,8 +49,26 @@ public class Book implements Serializable {
     }
 
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch= FetchType.EAGER)
+    @JoinTable(
+            name = "book_tag",
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+    )
     private Set<Tag> tags = new HashSet<>(0);
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        assert null != tag;
+        tags.add(tag);
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
 
     public Book() {}
 

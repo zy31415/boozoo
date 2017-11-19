@@ -103,7 +103,7 @@ public class BoozooMenuBar extends MenuBar {
         dialogStage.setTitle("Add a book");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
-        dialogStage.setScene(new Scene(root, 350, 400));
+        dialogStage.setScene(new Scene(root, 350, 600));
 
         dialogStage.show();
 
